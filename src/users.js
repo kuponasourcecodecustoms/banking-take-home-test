@@ -14,3 +14,12 @@ const sql = `INSERT INTO users.user_table (CustomerID,FirstName, LastName,Addres
 }
 
 
+export const getUser  = (customerId) => new Promise((resolve,reject) => {
+const sql = `Select  FirstName, LastName,Address from users.user_table where customerID='${customerId}'`
+    sqlConnection.query(sql, (err, result) => {
+    if (err) reject(err)
+    resolve(JSON.parse(JSON.stringify(result[0])))
+})})
+
+
+
