@@ -1,15 +1,12 @@
 import { createUser, getUser, deleteUser } from './src/users.js'
 import { createAccount, getAccount } from './src/accounts.js'
+import { depositMoney, withdrawMoney } from './src/transactions.js'
 import express from 'express'
 const app = express()
 const port = 3000
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
 
 app.post('/v1/users', (req, res) => {
     const {name,surname,address} = req.body
@@ -47,6 +44,19 @@ app.get('/v1/accounts/:accountID', async (req, res) => {
     const {accountID} = req.params
     const accountData = await getAccount(accountID)
     res.send(accountData)
+})
+
+app.post('/v1/accounts/:accountID/transactions', async (req, res) => {
+    const {accountID} = req.params
+    const {transaction_type,amount} = req.body
+    if(!transaction_type||!amount){
+        res.status(400).send('Please provide all expected information for transactions - Transaction Type, Amount')
+    return
+    }
+    let status
+    if (transaction_type == 'deposit') { status = depositMoney(accountID,amount)  ? 200 : 400}
+    else {status = withdrawMoney(accountID,amount) ? 200 : 400}
+    res.sendStatus(status)
 })
 
 app.listen(port, () => {

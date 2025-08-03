@@ -30,8 +30,3 @@ const sql = `Delete from users.user_table where customerID='${customerId}'`
   })
  
 })
-
-
-
-
-
