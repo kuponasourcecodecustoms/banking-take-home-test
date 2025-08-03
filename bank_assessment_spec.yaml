@@ -1,0 +1,75 @@
+openapi: 3.0.0
+info:
+  title: BarclaysAssessment
+  version: 1.0.0
+  description: Bank Assessment Solution
+   
+servers:
+  - url: '{{baseURL}}'
+paths:
+  /users:
+    parameters: []
+    post:
+      summary: Create User
+      parameters: []
+      responses: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                surname:
+                  type: string
+                address:
+                  type: string
+  /users/{{customerID}}:
+    parameters: []
+    get:
+      summary: Get User
+      parameters: []
+      responses: {}
+    delete:
+      summary: Delete User
+      parameters: []
+      responses: {}
+  /accounts:
+    parameters: []
+    post:
+      summary: Create Account
+      parameters: []
+      responses: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerID:
+                  type: string
+                bank_branch:
+                  type: string
+  /accounts/{{accountID}}:
+    parameters: []
+    get:
+      summary: Get Account
+      parameters: []
+      responses: {}
+  /accounts/{{accountID}}/transactions:
+    parameters: []
+    post:
+      summary: Deposit Amount
+      parameters: []
+      responses: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                transaction_type:
+                  type: string
+                amount:
+                  type: integer
